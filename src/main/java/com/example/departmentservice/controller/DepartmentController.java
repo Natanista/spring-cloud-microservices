@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class DepartmentController {
 
     @PostMapping
     public ResponseEntity<Department> saveDepartment(
-            @RequestBody DepartmentDto department){
+            @RequestBody @Valid DepartmentDto department){
         log.info("department saved in DepartmentController: %s", department);
         return service.save(department);
     }
