@@ -148,18 +148,11 @@ class DepartmentControllerTest {
     @Test
     @DisplayName("should not fetch all departments")
     void shouldNotFetchAllDepartments() throws Exception {
-
+        repository.deleteAll();
         this.mockMvc.perform(get(Routes.DEPARTMENTS_V1)
                         .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(jsonPath("$", hasSize(0)))
-                .andReturn();
+                .andExpect(status().isNoContent());
     }
-
-
-
-
-
 
 
 }

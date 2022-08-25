@@ -23,27 +23,21 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository repository;
 
     @Override
-    public ResponseEntity<Department> save(DepartmentDto departmentDto) {
+    public Department save(DepartmentDto departmentDto) {
         log.info("save in DepartmentServiceImpl");
         Department department = new Department();
         BeanUtils.copyProperties(departmentDto, department);
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(department));
+        return repository.save(department);
     }
 
     @Override
-    public ResponseEntity<Object> findById(Long id) {
+    public Optional<Department> findById(Long id) {
         log.info("findById inside DepartmentServiceImpl");
-        Optional<Department> optionalDepartment = repository.findById(id);
-        if(optionalDepartment.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        DepartmentDto departmentDto = new DepartmentDto();
-        BeanUtils.copyProperties(optionalDepartment.get(), departmentDto);
-        return ResponseEntity.status(HttpStatus.OK).body(departmentDto);
+        return repository.findById(id);
     }
 
     @Override
-    public ResponseEntity<List<DepartmentDto>> findAll() {
+    public List<DepartmentDto> findAll() {
         log.info("findAll inside DepartmentServiceImpl");
         List<Department> departments = repository.findAll();
         List<DepartmentDto> departmentDtos = new ArrayList<>();
@@ -54,6 +48,6 @@ public class DepartmentServiceImpl implements DepartmentService {
             departmentDtos.add(departmentDto);
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(departmentDtos);
+        return departmentDtos;
     }
 }

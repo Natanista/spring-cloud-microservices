@@ -9,13 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface DepartmentService {
 
-    ResponseEntity<Department> save(DepartmentDto department);
+    Department save(DepartmentDto department);
 
-    ResponseEntity<Object> findById(Long id);
+    Optional<Department> findById(Long id);
 
-    ResponseEntity<List<DepartmentDto>> findAll();
+    List<DepartmentDto> findAll();
 }
